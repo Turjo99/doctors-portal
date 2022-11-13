@@ -2,6 +2,7 @@ import React from "react";
 import AnotherFeature from "./AnotherFeature";
 import Features from "./Features";
 import Hero from "./Hero";
+import MakeAppointment from "./MakeAppointment";
 import OurService from "./OurService";
 
 const Home = () => {
@@ -11,6 +12,7 @@ const Home = () => {
       <Features></Features>
       <OurService></OurService>
       <AnotherFeature></AnotherFeature>
+      <MakeAppointment></MakeAppointment>
     </div>
   );
 };
