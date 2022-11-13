@@ -1,5 +1,11 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import { Link } from "react-router-dom";
+import {
+  faCoffee,
+  faLocation,
+  faLocationDot,
+} from "@fortawesome/free-solid-svg-icons";
 
 const Nav = () => {
   const menuItems = (
@@ -50,6 +56,7 @@ const Nav = () => {
             </ul>
           </div>
           <a className="btn btn-ghost normal-case text-xl">Doctors Portal</a>
+          <FontAwesomeIcon icon={faLocationDot} />
         </div>
         <div className="navbar-center hidden lg:flex ml-auto">
           <ul className="menu menu-horizontal p-0">{menuItems}</ul>
