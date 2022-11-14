@@ -6,11 +6,11 @@ const MakeAppointment = () => {
   return (
     <div className=" my-40">
       <div
-        className="grid grid-cols-2 gap-5 shadow-xl"
+        className="grid lg:grid-cols-2 gap-5 shadow-xl"
         style={{ backgroundImage: `url(${Bg})` }}
       >
         <figure>
-          <img src={Doctor} alt="Album" className=" -mt-44" />
+          <img src={Doctor} alt="Album" className=" -mt-44 hidden lg:block" />
         </figure>
         <div className="my-auto p-5">
           <p className="text-primary">Appointment</p>
