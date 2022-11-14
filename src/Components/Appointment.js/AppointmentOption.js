@@ -18,7 +18,7 @@ const AppointmentOption = ({ option, setTreatment }) => {
             htmlFor="booking-modal"
             className="btn btn-primary text-white"
             onClick={() => {
-              setTreatment(name);
+              setTreatment(option);
             }}
           >
             Book Appointment
