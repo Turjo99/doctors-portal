@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Appointment from "../Components/Appointment.js/Appointment";
+import Login from "../Components/Forms/Login";
 import Home from "../Components/Home/Home";
 import Main from "../Layout/Main";
 
@@ -15,6 +16,10 @@ export const router = createBrowserRouter([
       {
         path: "/appointment",
         element: <Appointment></Appointment>,
+      },
+      {
+        path: "/login",
+        element: <Login></Login>,
       },
     ],
   },

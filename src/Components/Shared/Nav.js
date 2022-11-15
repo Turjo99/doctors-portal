@@ -26,6 +26,9 @@ const Nav = () => {
       <li>
         <Link>Contact Us</Link>
       </li>
+      <li>
+        <Link to={"/login"}>Login</Link>
+      </li>
     </>
   );
   return (
