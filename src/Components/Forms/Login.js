@@ -42,15 +42,15 @@ const Login = () => {
               <span className="label-text">Email</span>
             </label>
             <input
-              type="text"
+              type="email"
               {...register("email", {
                 required: "Email Address is required",
               })}
               className="input input-bordered w-full max-w-xs"
             />
-            {/* {errors.email && (
+            {errors.email && (
               <p className="text-red-600">{errors.email?.message}</p>
-            )} */}
+            )}
           </div>
           <div className="form-control w-full max-w-xs">
             <label className="label">
@@ -72,9 +72,9 @@ const Login = () => {
               {" "}
               <span className="label-text">Forget Password?</span>
             </label>
-            {/* {errors.password && (
+            {errors.password && (
               <p className="text-red-600">{errors.password?.message}</p>
-            )} */}
+            )}
           </div>
           <input
             className="btn btn-accent w-full"
