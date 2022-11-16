@@ -1,13 +1,20 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import {
   faCoffee,
   faLocation,
   faLocationDot,
 } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../Contexts/UserContext";
 
 const Nav = () => {
+  const { logOut, user } = useContext(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((err) => console.log(err));
+  };
   const menuItems = (
     <>
       <li>
@@ -26,12 +33,28 @@ const Nav = () => {
       <li>
         <Link>Contact Us</Link>
       </li>
-      <li>
-        <Link to={"/login"}>Login</Link>
-      </li>
-      <li>
-        <Link to={"/signup"}>Signup</Link>
-      </li>
+      {user?.uid ? (
+        <>
+          <li onClick={handleLogOut}>
+            <Link to={""}>LogOut</Link>
+          </li>
+          <li>
+            <Link to={""}>{user.email}</Link>
+          </li>
+          <li>
+            <Link to={""}>{user.displayName}</Link>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to={"/login"}>Login</Link>
+          </li>
+          <li>
+            <Link to={"/signup"}>Signup</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (

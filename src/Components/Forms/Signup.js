@@ -1,22 +1,32 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import UserContext, { AuthContext } from "../../Contexts/UserContext";
+import { AuthContext } from "../../Contexts/UserContext";
 
 const Signup = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, updateUser, user } = useContext(AuthContext);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
   const handleSignUp = (data) => {
-    console.log(data);
+    console.log(data.name);
     createUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        // toast("User Created Successfully.");
+        const userInfo = {
+          displayName: data.name,
+        };
+        updateUser(userInfo)
+          .then(() => {})
+          .catch((err) => console.log(err));
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        console.log(error);
+        // setSignUPError(error.message);
+      });
   };
   return (
     <div className="h-[800px] flex justify-center items-center">
