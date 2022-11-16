@@ -31,7 +31,7 @@ const Nav = () => {
         <Link>Reviews</Link>
       </li>
       <li>
-        <Link>Contact Us</Link>
+        <Link to={"/dashboard"}>Dashboard</Link>
       </li>
       {user?.uid ? (
         <>
