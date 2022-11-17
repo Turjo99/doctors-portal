@@ -38,9 +38,9 @@ const Nav = () => {
           <li onClick={handleLogOut}>
             <Link to={""}>LogOut</Link>
           </li>
-          <li>
+          {/* <li>
             <Link to={""}>{user.email}</Link>
-          </li>
+          </li> */}
           <li>
             <Link to={""}>{user.displayName}</Link>
           </li>

@@ -1,7 +1,9 @@
 import { format } from "date-fns";
-import React from "react";
-
-const AppointmentModal = ({ treatment, selected, setTreatment }) => {
+import React, { useContext } from "react";
+import { AuthContext } from "../../Contexts/UserContext";
+import toast from "react-hot-toast";
+const AppointmentModal = ({ treatment, selected, setTreatment, refetch }) => {
+  const { user } = useContext(AuthContext);
   const { name, slots } = treatment;
   const date = format(selected, "PP");
 
@@ -26,7 +28,24 @@ const AppointmentModal = ({ treatment, selected, setTreatment }) => {
     // and once data is saved then close the modal
     // and display success toast
     console.log(booking);
-    setTreatment(null);
+    fetch("http://localhost:5000/bookings", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          setTreatment(null);
+          toast.success("Booking confirmed");
+          refetch();
+        } else {
+          toast.error(data.message);
+        }
+      });
   };
   return (
     <>
@@ -62,12 +81,15 @@ const AppointmentModal = ({ treatment, selected, setTreatment }) => {
               type="text"
               placeholder="Your Name"
               className="input w-full input-bordered"
+              defaultValue={user?.displayName}
             />
             <input
               name="email"
               type="email"
               placeholder="Email Address"
               className="input w-full input-bordered"
+              defaultValue={user?.email}
+              disabled
             />
             <input
               name="phone"

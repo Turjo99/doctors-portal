@@ -9,7 +9,7 @@ import {
 const Features = () => {
   return (
     <div className="my-10">
-      <div class="grid lg:grid-cols-3 gap-4">
+      <div className="grid lg:grid-cols-3 gap-4">
         <div className="lg:flex gap-5 justify-center items-center bg-gradient-to-r from-primary to-secondary text-white lg:h-48 rounded-lg p-10 mx-3">
           <div className=" text-8xl text-center mb-5">
             <FontAwesomeIcon icon={faLocationDot}></FontAwesomeIcon>

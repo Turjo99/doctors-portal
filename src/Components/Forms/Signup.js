@@ -1,9 +1,12 @@
 import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Contexts/UserContext";
-
+import toast, { Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+const notify = () => toast("Here is your toast.");
 const Signup = () => {
   const { createUser, updateUser, user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -15,10 +18,11 @@ const Signup = () => {
       .then((result) => {
         const user = result.user;
         console.log(user);
-        // toast("User Created Successfully.");
+        toast("User Created Successfully.");
         const userInfo = {
           displayName: data.name,
         };
+        navigate("/");
         updateUser(userInfo)
           .then(() => {})
           .catch((err) => console.log(err));
@@ -30,6 +34,7 @@ const Signup = () => {
   };
   return (
     <div className="h-[800px] flex justify-center items-center">
+      <Toaster />
       <div className="w-96 p-7">
         <h2 className="text-xl text-center">Signup</h2>
         <form onSubmit={handleSubmit(handleSignUp)}>
