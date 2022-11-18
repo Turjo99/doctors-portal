@@ -33,6 +33,28 @@ const Nav = () => {
       <li>
         <Link to={"/dashboard"}>Dashboard</Link>
       </li>
+      {user?.uid ? (
+        <>
+          <li onClick={handleLogOut}>
+            <Link to={""}>LogOut</Link>
+          </li>
+          {/* <li>
+            <Link to={""}>{user.email}</Link>
+          </li> */}
+          <li>
+            <Link to={""}>{user.email}</Link>
+          </li>
+        </>
+      ) : (
+        <>
+          <li>
+            <Link to={"/login"}>Login</Link>
+          </li>
+          <li>
+            <Link to={"/signup"}>Signup</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (
@@ -68,33 +90,6 @@ const Nav = () => {
         </div>
         <div className="navbar-center hidden lg:flex ml-auto">
           <ul className="menu menu-horizontal p-0">{menuItems}</ul>
-        </div>
-        <div className="navbar-end">
-          <ul className="menu menu-horizontal p-0">
-            {user?.uid ? (
-              <>
-                <li onClick={handleLogOut}>
-                  <Link to={""}>LogOut</Link>
-                </li>
-                {/* <li>
-            <Link to={""}>{user.email}</Link>
-          </li> */}
-                <li>
-                  <Link to={""}>{user.email}</Link>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <Link to={"/login"}>Login</Link>
-                </li>
-                <li>
-                  <Link to={"/signup"}>Signup</Link>
-                </li>
-              </>
-            )}
-          </ul>
-
           <label
             tabIndex={0}
             htmlFor="dashboard-drawer"
@@ -116,6 +111,48 @@ const Nav = () => {
             </svg>
           </label>
         </div>
+        <label
+          tabIndex={0}
+          htmlFor="dashboard-drawer"
+          className="btn btn-ghost lg:hidden navbar-end"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4 6h16M4 12h8m-8 6h16"
+            />
+          </svg>
+        </label>
+        {/* <div className="navbar-end">
+          <label
+            tabIndex={0}
+            htmlFor="dashboard-drawer"
+            className="btn btn-ghost lg:hidden navbar-end"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h8m-8 6h16"
+              />
+            </svg>
+          </label>
+        </div> */}
       </div>
     </div>
   );
