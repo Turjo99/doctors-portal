@@ -18,7 +18,42 @@ const AddDoctor = () => {
     formState: { errors },
   } = useForm();
   const handleAddDoctor = (data) => {
-    console.log(data);
+    const image = data.image[0];
+    const formData = new FormData();
+    formData.append("image", image);
+    const url = `https://api.imgbb.com/1/upload?key=173fdc71ef7f7d283d851047064ee7ef`;
+    fetch(url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((imgData) => {
+        if (imgData.success) {
+          console.log(imgData.data.url);
+          //   const doctor = {
+          //     name: data.name,
+          //     email: data.email,
+          //     specialty: data.specialty,
+          //     image: imgData.data.url,
+          //   };
+
+          // save doctor information to the database
+          //   fetch("http://localhost:5000/doctors", {
+          //     method: "POST",
+          //     headers: {
+          //       "content-type": "application/json",
+          //       authorization: `bearer ${localStorage.getItem("accessToken")}`,
+          //     },
+          //     body: JSON.stringify(doctor),
+          //   })
+          //     .then((res) => res.json())
+          //     .then((result) => {
+          //       console.log(result);
+          //       toast.success(`${data.name} is added successfully`);
+          //       navigate("/dashboard/managedoctors");
+          //     });
+        }
+      });
   };
   if (isLoading) {
     <Loading></Loading>;
@@ -75,6 +110,20 @@ const AddDoctor = () => {
               </option>
             ))}
           </select>
+        </div>
+        <div className="form-control w-full max-w-xs">
+          <label className="label">
+            {" "}
+            <span className="label-text">Photo</span>
+          </label>
+          <input
+            type="file"
+            {...register("image", {
+              required: "Photo is Required",
+            })}
+            className="input input-bordered w-full max-w-xs"
+          />
+          {errors.img && <p className="text-red-500">{errors.img.message}</p>}
         </div>
         <input
           className="btn btn-accent w-full mt-10"
