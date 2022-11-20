@@ -4,7 +4,7 @@ import { AuthContext } from "../../Contexts/UserContext";
 import toast from "react-hot-toast";
 const AppointmentModal = ({ treatment, selected, setTreatment, refetch }) => {
   const { user } = useContext(AuthContext);
-  const { name, slots } = treatment;
+  const { name, slots, price } = treatment;
   const date = format(selected, "PP");
 
   const handleBooking = (event) => {
@@ -22,6 +22,7 @@ const AppointmentModal = ({ treatment, selected, setTreatment, refetch }) => {
       slot,
       email,
       phone,
+      price,
     };
 
     // TODO: send data to the server
@@ -32,6 +33,8 @@ const AppointmentModal = ({ treatment, selected, setTreatment, refetch }) => {
       method: "POST",
       headers: {
         "content-type": "application/json",
+
+        authorization: `bearer ${localStorage.getItem("accessToken")}`,
       },
       body: JSON.stringify(booking),
     })
