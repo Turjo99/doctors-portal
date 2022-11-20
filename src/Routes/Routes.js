@@ -7,6 +7,7 @@ import Home from "../Components/Home/Home";
 import MyAppointment from "../Components/MyAppointment/MyAppointment";
 import AddDoctor from "../Dashboard/AddDoctor";
 import AllUsers from "../Dashboard/AllUsers";
+import ManageDoctors from "../Dashboard/ManageDoctors";
 
 import DashBoardLayout from "../Layout/DashBoardLayout";
 import Main from "../Layout/Main";
@@ -61,6 +62,14 @@ export const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AddDoctor></AddDoctor>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "/dashboard/managedoctors",
+        element: (
+          <AdminRoute>
+            <ManageDoctors></ManageDoctors>
           </AdminRoute>
         ),
       },

@@ -8,6 +8,7 @@ import useAdmin from "../Hooks/useAdmin";
 const DashBoardLayout = () => {
   const { user } = useContext(AuthContext);
   const [isAdmin] = useAdmin(user?.email);
+  console.log(isAdmin);
   return (
     <div className=" max-w-[1440px] mx-auto">
       <Nav></Nav>
@@ -33,6 +34,9 @@ const DashBoardLayout = () => {
                 </li>
                 <li>
                   <Link to="/dashboard/adddoctor">Add Doctor</Link>
+                </li>
+                <li>
+                  <Link to="/dashboard/managedoctors">Manage Doctors</Link>
                 </li>
               </>
             )}
