@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 
 import {
@@ -8,16 +8,31 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 
-const CheckoutForm = () => {
+const CheckoutForm = ({ booking }) => {
   const [cardError, setCardError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [transactionId, setTransationId] = useState("");
+  const [processing, setProcessing] = useState(false);
+  const [clientSecret, setClientSecret] = useState("");
+  const { price, patient, email } = booking;
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch("http://localhost:5000/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ price }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
   const stripe = useStripe();
   const elements = useElements();
-
+  console.log(booking);
   const handleSubmit = async (event) => {
     // Block native form submission.
     event.preventDefault();
 
-    if (!stripe || !elements) {
+    if (!stripe || !elements || processing) {
       // Stripe.js has not loaded yet. Make sure to disable
       // form submission until Stripe.js has loaded.
       return;
@@ -43,6 +58,27 @@ const CheckoutForm = () => {
     } else {
       setCardError("");
     }
+    setSuccess("");
+    setProcessing(true);
+    const { paymentIntent, error: confirmError } =
+      await stripe.confirmCardPayment(clientSecret, {
+        payment_method: {
+          card: card,
+          billing_details: {
+            name: patient,
+            email: email,
+          },
+        },
+      });
+    if (confirmError) {
+      setCardError(confirmError.message);
+      return;
+    }
+    if (paymentIntent.status === "succeeded") {
+      setSuccess("congrats!!YOur payment Completed");
+      setTransationId(paymentIntent.id);
+    }
+    console.log(paymentIntent);
   };
 
   return (
@@ -63,9 +99,19 @@ const CheckoutForm = () => {
           },
         }}
       />
-      <button type="submit" disabled={!stripe}>
+      <button type="btn-primary" disabled={!stripe}>
         Pay
       </button>
+      <p className="text-red-600">{cardError}</p>
+      {success && (
+        <div className="">
+          <p className="text-green-500">{success}</p>
+          <p>
+            Your Transaction ID{" "}
+            <span className=" font-bold">{transactionId}</span>
+          </p>
+        </div>
+      )}
     </form>
   );
 };
